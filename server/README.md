@@ -26,9 +26,6 @@ GET /merchant/:id/\
 GET /merchant/:id/packages\
 GET /merchant/:id/orders
 
-```
-
-
 ## bookshelf
 
 
