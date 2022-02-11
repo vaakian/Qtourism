@@ -2,29 +2,34 @@
 
 [x]POST /user/auth (body: { name: string, password: string })
 
-### no auth
+### NO AUTH
+
 [x]GET /package?keyword=<keyword>&page=<page>\
-~~GET /package~~\
 [x]GET /package/:id\
 [x]GET /package/:id/comment\
-~~GET /merchant/:id~~\
 [x]POST /user/register (body: { name, password, tel, avatar_url })
 
-### auth needed
+### AUTH NEEDED
+
+
+#### merchant only
+
 POST /package (body: {name, price, description})\
+DELETE /package/:id\
+GET /merchant/packages\
+GET /merchant/orders?package_id=<package_id>&page=<page>\
+
+
+#### user only
+[x]DELETE /comment/:id\
 [x]POST /package/:id/comment (body: { content })\
 POST /order (body: { package_id })\
+GET /user/info\
+GET /user/packages\
+GET /user/comments\
+GET /user/orders
 
-DELETE /comment/:id\
-DELETE /package/:id\
-GET /user/:id\
-GET /user/:id/packages\
-GET /user/:id/comments\
-GET /user/:id/orders
 
-GET /merchant/:id/\
-GET /merchant/:id/packages\
-GET /merchant/:id/orders
 
 ## bookshelf
 
