@@ -1,4 +1,5 @@
 const Koa = require('koa')
+const { authMiddleware } = require('./auth')
 const router = require('./routes')
 const app = new Koa()
 

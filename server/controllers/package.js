@@ -1,6 +1,7 @@
 const models = require('../database/models')
-const { auth } = require("../auth")
+const { userAuth } = require("../auth")
 const PAGE_SIZE = 10
+
 
 // GET /package?page=1&keyword=xxx
 const getPackages = async (ctx) => {
@@ -50,7 +51,7 @@ const addComment = async ctx => {
   try {
     const package = await new models.Comment({
       package_id: id,
-      user_id: auth.decode(ctx.header.authorization).id,
+      user_id: userAuth.decode(ctx.header.authorization).id,
       content
     }).save()
     ctx.body = package.toJSON()
@@ -63,6 +64,19 @@ const addComment = async ctx => {
 // DELETE /comment/:id
 const deleteComment = async ctx => {
   const { id } = ctx.params
+  // 需要先检测是否是属于本人的comment
+  const user_id = userAuth.decode(ctx.header.authorization).id
+  // 获取评论信息
+  const comment = await models.Comment.where({ id })
+    .fetch({ withRelated: ['user'] })
+  if (comment.toJSON().user_id !== user_id) {
+    ctx.status = 401
+    ctx.body = {
+      message: 'Unauthorized'
+    }
+    return
+  }
+
   try {
     const comment = await models.Comment.where({ id }).destroy()
     ctx.body = comment.toJSON()
@@ -76,4 +90,5 @@ module.exports = {
   getPackageDetail,
   getComments,
   addComment,
+  deleteComment,
 }
