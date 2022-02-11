@@ -3,9 +3,9 @@
 
 ### NO AUTH
 
-- [x] GET /package?keyword=<keyword>&page=<page>\
-- [x] GET /package/:id\
-- [x] GET /package/:id/comment\
+- [x] GET /package?keyword=<keyword>&page=<page>
+- [x] GET /package/:id
+- [x] GET /package/:id/comment
 - [x] POST /user/register (body: { username, password, tel, avatar_url })
 
 
@@ -18,19 +18,19 @@
 
 #### merchant only
 
-- [ ] POST /package (body: {name, price, description})\
-- [ ] DELETE /package/:id\
-- [ ] GET /merchant/packages\
-- [ ] GET /merchant/orders?package_id=<package_id>&page=<page>\
+- [ ] POST /package (body: {name, price, description})
+- [ ] DELETE /package/:id
+- [ ] GET /merchant/packages
+- [ ] GET /merchant/orders?package_id=<package_id>&page=<page>
 
 
 #### user only
-- [x] DELETE /comment/:id\
-- [x] POST /package/:id/comment (body: { content })\
-- [ ] POST /order (body: { package_id })\
-- [ ] GET /user/info\
-- [ ] GET /user/packages\
-- [ ] GET /user/comments\
+- [x] DELETE /comment/:id
+- [x] POST /package/:id/comment (body: { content })
+- [ ] POST /order (body: { package_id })
+- [ ] GET /user/info
+- [ ] GET /user/packages
+- [ ] GET /user/comments
 - [ ] GET /user/orders
 
 

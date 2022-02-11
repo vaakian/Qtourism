@@ -1,6 +1,6 @@
 const models = require('../database/models')
 
-const { auth } = require('../auth')
+const { merchantAuth } = require('../auth')
 const login = async ctx => {
   const { username, password } = ctx.request.body
   const user = new models.User({ username, password })
@@ -9,7 +9,7 @@ const login = async ctx => {
     const userinfo = result.toJSON()
     ctx.status = 200
     ctx.body = {
-      token: auth.sign(userinfo),
+      token: merchantAuth.sign(userinfo),
       userinfo
     }
   } else {

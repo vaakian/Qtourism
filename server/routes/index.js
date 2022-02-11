@@ -1,5 +1,5 @@
 const Router = require('koa-router')
-const { userAuthMiddleware } = require('../auth')
+const { userAuthMiddleware, merchantAuthMiddleware } = require('../auth')
 const { packageControllers, userControllers } = require('../controllers')
 const router = new Router({ prefix: '/api' })
 
@@ -13,4 +13,6 @@ router.get('/package/:id/comment', packageControllers.getComments)
 // authentication needed
 router.post('/package/:id/comment', userAuthMiddleware, packageControllers.addComment)
 router.delete('/comment/:id', userAuthMiddleware, packageControllers.deleteComment)
+
+router.delete('/package/:id', merchantAuthMiddleware, packageControllers.deletePackage)
 module.exports = router

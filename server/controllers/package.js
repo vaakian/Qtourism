@@ -19,6 +19,7 @@ const getPackages = async (ctx) => {
     pages: packages.pagination.pageCount
   }
 }
+
 //GET /package/:id
 const getPackageDetail = async ctx => {
   const { id } = ctx.params
@@ -85,10 +86,37 @@ const deleteComment = async ctx => {
     ctx.body = {}
   }
 }
+
+
+// merchant only
+// delete package
+const deletePackage = async ctx => {
+  const { id } = ctx.params
+  const merchant_id = userAuth.decode(ctx.header.authorization).id
+  const package = await models.Package.where({ id }).fetch({
+    withRelated: ['merchant']
+  })
+  if (package.toJSON().merchant_id !== merchant_id) {
+    ctx.status = 401
+    ctx.body = {
+      message: 'Unauthorized'
+    }
+    return
+  }
+  try {
+    const package = await models.Package.where({ id }).destroy()
+    ctx.body = package.toJSON()
+  } catch (err) {
+    ctx.status = 403
+    ctx.body = {}
+  }
+}
 module.exports = {
   getPackages,
   getPackageDetail,
   getComments,
   addComment,
   deleteComment,
+
+  deletePackage,
 }
