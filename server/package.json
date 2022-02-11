@@ -1,0 +1,22 @@
+{
+  "name": "cmq-toursim-server",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": "xwj",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon main.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "@vscode/sqlite3": "^5.0.7",
+    "bookshelf": "^1.2.0",
+    "knex": "^1.0.3",
+    "koa": "^2.13.4",
+    "koa-jwt": "^4.0.3",
+    "koa-router": "^10.1.1",
+    "sqlite3": "^5.0.2"
+  }
+}
