@@ -15,9 +15,9 @@ CREATE TABLE users (
 CREATE TABLE merchants (
     id INTEGER PRIMARY KEY,
     password TEXT,
-    name TEXT,
+    username TEXT,
     tel TEXT,
-    avatar_url TEXT,
+    description TEXT,
     time DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE packages (

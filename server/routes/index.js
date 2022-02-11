@@ -1,10 +1,10 @@
 const Router = require('koa-router')
-const { login } = require('../auth')
-const { getPackagesByQuery } = require('../controllers')
+const { packageControllers, userControllers } = require('../controllers')
 const router = new Router({ prefix: '/api' })
 
 
-router.post('/user/auth', login)
+router.post('/user/login', userControllers.login)
 
-router.get('/package', getPackagesByQuery)
+router.get('/package', packageControllers.getPackages)
+router.get('/package/:id', packageControllers.getPackageDetail)
 module.exports = router

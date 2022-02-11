@@ -7,14 +7,16 @@ const User = bookshelf.model('User', {
   },
   orders() {
     return this.hasMany('Order', 'user_id', 'id')
-  }
+  },
+  hidden: ['password']
 })
 
 const Merchant = bookshelf.model('Merchant', {
   tableName: 'merchants',
   packages() {
     return this.hasMany('Package', 'merchant_id', 'id')
-  }
+  },
+  hidden: ['password']
 })
 
 const Package = bookshelf.model('Package', {
