@@ -6,13 +6,13 @@
 - [x] GET /package?keyword=<keyword>&page=<page>
 - [x] GET /package/:id
 - [x] GET /package/:id/comment
-- [x] POST /user/register (body: { username, password, tel, avatar_url })
 
 
 #### both user and merchant
 
-- [x] POST /user/login (body: { username: string, password: string })
-
+- [ ] POST /user/register (body: { username, password, tel, avatar_url/description })
+- [ ] POST /user/login (body: { username: string, password: string })
+- [ ] POST /user/logout
 ### AUTH NEEDED
 
 
@@ -21,7 +21,7 @@
 - [ ] POST /package (body: {name, price, description})
 - [ ] DELETE /package/:id
 - [ ] GET /merchant/packages
-- [ ] GET /merchant/orders?package_id=<package_id>&page=<page>
+- [ ] GET /merchant/orders?package_id=1823&page=1
 
 
 #### user only
