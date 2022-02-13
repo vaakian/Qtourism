@@ -1,25 +1,48 @@
 const models = require('../database/models')
 
 const { merchantAuth } = require('../auth')
-const login = async ctx => {
+const { makeResponse } = require('./utils')
+const login = ctx => {
   const { username, password } = ctx.request.body
   const user = new models.User({ username, password })
-  const result = await user.fetch()
-  if (result) {
+  return user.fetch().then(result => {
     const userinfo = result.toJSON()
     ctx.status = 200
     ctx.body = {
       token: merchantAuth.sign(userinfo),
       userinfo
     }
-  } else {
-    ctx.status = 401
+  }).catch(err => {
+    ctx.status = 403
     ctx.body = {
-      message: 'Unauthorized'
+      message: '登录失败'
     }
-  }
+  })
+}
+
+// POST /merchant/package
+const getMerchantPackages = ctx => {
+  const { id } = merchantAuth.decode(ctx.header.authorization)
+  return makeResponse(
+    models.Package.where({ merchant_id: id }).fetchAll(),
+    '没有找到套餐'
+  )
+}
+
+// - [ ] GET /merchant/orders?package_id=1823&page=1
+const getMerchantOrders = ctx => {
+  const { id } = merchantAuth.decode(ctx.header.authorization)
+  return makeResponse(
+    models.Order.where({ merchant_id: id }).fetchAll({
+      withRelated: ['package', 'user']
+    }),
+    ctx,
+    '没有找到订单'
+  )
 }
 
 module.exports = {
-  login
+  login,
+  getMerchantPackages,
+  getMerchantOrders
 }

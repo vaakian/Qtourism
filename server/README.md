@@ -10,28 +10,30 @@
 
 #### both user and merchant
 
-- [ ] POST /user/register (body: { username, password, tel, avatar_url/description })
-- [ ] POST /user/login (body: { username: string, password: string })
-- [ ] POST /user/logout
+- [x] POST /user/register (body: { username, password, tel, avatar_url/description })
+- [x] POST /user/login (body: { username: string, password: string })
+- ~~[ ] POST /user/logout~~
 ### AUTH NEEDED
 
 
 #### merchant only
 
-- [ ] POST /package (body: {name, price, description})
-- [ ] DELETE /package/:id
-- [ ] GET /merchant/packages
-- [ ] GET /merchant/orders?package_id=1823&page=1
+- [x] POST /package (body: {name, price, description})
+- [x] DELETE /package/:id
+- [x] ~~GET /merchant/packages~~
+- [x] GET /merchant/orders?package_id=1823&page=1
 
 
 #### user only
 - [x] DELETE /comment/:id
 - [x] POST /package/:id/comment (body: { content })
-- [ ] POST /order (body: { package_id })
-- [ ] GET /user/info
-- [ ] GET /user/packages
-- [ ] GET /user/comments
-- [ ] GET /user/orders
+- [x] POST /order (body: { package_id })
+
+<!-- #### unnecessary -->
+- [x] GET /user/info
+- [x] GET /user/packages
+- [x] GET /user/comments
+- [x] GET /user/orders
 
 
 

@@ -23,6 +23,7 @@ CREATE TABLE merchants (
 CREATE TABLE packages (
     id INTEGER PRIMARY KEY,
     merchant_id INTEGER,
+    banner_url TEXT,
     name TEXT,
     price INTEGER,
     description TEXT,

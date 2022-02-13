@@ -1,65 +1,62 @@
 const models = require('../database/models')
-const { userAuth } = require("../auth")
+const { userAuth, merchantAuth } = require("../auth")
+const { makeResponse } = require('./utils')
 const PAGE_SIZE = 10
 
 
 // GET /package?page=1&keyword=xxx
-const getPackages = async (ctx) => {
+const getPackages = ctx => {
   let { page, keyword } = ctx.query
   if (!!page === false || page <= 0) page = 1
   if (!!keyword === false) keyword = ''
-  const packages = await models.Package.where('name', 'like', `%${keyword}%`).fetchPage({
-    pageSize: PAGE_SIZE,
-    page,
-    withRelated: ['merchant']
-  })
-  ctx.body = {
-    packages: packages.toJSON(),
-    page: packages.pagination.page,
-    pages: packages.pagination.pageCount
-  }
+  return makeResponse(
+    models.Package.where('name', 'like', `%${keyword}%`).fetchPage({
+      pageSize: PAGE_SIZE,
+      page,
+      withRelated: ['merchant']
+    }),
+    ctx,
+    '未能获取到套餐'
+  )
 }
 
 //GET /package/:id
-const getPackageDetail = async ctx => {
+const getPackageDetail = ctx => {
   const { id } = ctx.params
-  try {
-    const package = await models.Package.where({ id }).fetch({
+  return makeResponse(
+    models.Package.where({ id }).fetch({
       withRelated: ['merchant']
-    })
-    ctx.body = package.toJSON()
-  } catch (err) {
-    ctx.status = 404
-    ctx.body = {}
-  }
+    }),
+    ctx,
+    '未找到Package信息'
+  )
 }
 
 // GET /package/:id/comment
-const getComments = async ctx => {
+const getComments = ctx => {
   const { id } = ctx.params
-  try {
-    const package = await models.Comment.where({ package_id: id }).fetchAll()
-    ctx.body = package.toJSON()
-  } catch (err) {
-    ctx.status = 404
-    ctx.body = {}
-  }
+  return makeResponse(
+    models.Comment.where({ package_id: id }).fetchAll({
+      withRelated: ['user']
+    }),
+    ctx,
+    '未找到评论'
+  )
 }
 // POST /package/:id/comment
-const addComment = async ctx => {
+const addComment = ctx => {
   const { id } = ctx.params
   const { content } = ctx.request.body
-  try {
-    const package = await new models.Comment({
+  console.log('content', content)
+  return makeResponse(
+    new models.Comment({
       package_id: id,
       user_id: userAuth.decode(ctx.header.authorization).id,
       content
-    }).save()
-    ctx.body = package.toJSON()
-  } catch (err) {
-    ctx.status = 404
-    ctx.body = {}
-  }
+    }).save(),
+    ctx,
+    '未能添加评论'
+  )
 }
 
 // DELETE /comment/:id
@@ -78,13 +75,11 @@ const deleteComment = async ctx => {
     return
   }
 
-  try {
-    const comment = await models.Comment.where({ id }).destroy()
-    ctx.body = comment.toJSON()
-  } catch (err) {
-    ctx.status = 403
-    ctx.body = {}
-  }
+  return makeResponse(
+    comment.destroy(),
+    ctx,
+    '删除评论失败'
+  )
 }
 
 
@@ -92,7 +87,7 @@ const deleteComment = async ctx => {
 // delete package
 const deletePackage = async ctx => {
   const { id } = ctx.params
-  const merchant_id = userAuth.decode(ctx.header.authorization).id
+  const merchant_id = merchantAuth.decode(ctx.header.authorization).id
   const package = await models.Package.where({ id }).fetch({
     withRelated: ['merchant']
   })
@@ -103,13 +98,19 @@ const deletePackage = async ctx => {
     }
     return
   }
-  try {
-    const package = await models.Package.where({ id }).destroy()
-    ctx.body = package.toJSON()
-  } catch (err) {
-    ctx.status = 403
-    ctx.body = {}
-  }
+  return makeResponse(package.destroy(), ctx, '删除套餐失败')
+}
+const addPackage = ctx => {
+  const { name, description, price, banner_url } = ctx.request.body
+  const merchant_id = merchantAuth.decode(ctx.header.authorization).id
+  const package = new models.Package({
+    name,
+    description,
+    price,
+    banner_url,
+    merchant_id
+  })
+  return makeResponse(package.save(), ctx, '添加套餐失败')
 }
 module.exports = {
   getPackages,
@@ -119,4 +120,5 @@ module.exports = {
   deleteComment,
 
   deletePackage,
+  addPackage
 }

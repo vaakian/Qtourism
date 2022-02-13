@@ -1,9 +1,10 @@
 const Koa = require('koa')
-const { authMiddleware } = require('./auth')
+const bodyParser = require('koa-bodyparser')
 const router = require('./routes')
 const app = new Koa()
 
 app
+  .use(bodyParser())
   .use(router.routes())
   .use(router.allowedMethods())
 // app.use(async ctx => {

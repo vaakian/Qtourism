@@ -1,15 +1,16 @@
 const jwt = require('koa-jwt')
+const jsonwebtoken = require('jsonwebtoken')
 const USER_JWT_SECRET = 'user secret'
 const MERCHANT_JWT_SECRET = 'merchant secret'
 createAuth = (secret) => ({
   verify(token) {
-    return jwt.verify(token, USER_JWT_SECRET)
+    return jsonwebtoken.verify(token, secret)
   },
   sign(userinfo) {
-    return jwt.sign(userinfo, USER_JWT_SECRET)
+    return jsonwebtoken.sign(userinfo, secret)
   },
   decode(token) {
-    return jwt.decode(token, USER_JWT_SECRET)
+    return jsonwebtoken.verify(token.slice(7), secret)
   }
 })
 
