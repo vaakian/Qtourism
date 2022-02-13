@@ -1,12 +1,19 @@
-// import { useState } from 'react'
+import { } from 'react'
+
 import './App.css'
+import { AppRoute } from './routes'
+import { GlobalContextProvider, StateEditor } from './store'
+
 
 function App() {
-
   return (
-    <div className="App">
-      Hello, CMQ!
-    </div>
+    <GlobalContextProvider>
+      <div className="App">
+        <AppRoute />
+
+        {/* <StateEditor /> */}
+      </div>
+    </GlobalContextProvider>
   )
 }
 

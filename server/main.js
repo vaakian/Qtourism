@@ -7,10 +7,5 @@ app
   .use(bodyParser())
   .use(router.routes())
   .use(router.allowedMethods())
-// app.use(async ctx => {
-//   ctx.body = {
-//     message: 'Hello World'
-//   }
-// })
 
-app.listen(3000)
+app.listen(3001)
