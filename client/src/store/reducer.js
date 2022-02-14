@@ -1,6 +1,6 @@
 import mutations from "./mutations"
 
-const recoverProfile = () => {
+const initializeProfile = () => {
   const userProfile = localStorage.getItem("userProfile")
   const merchantProfile = localStorage.getItem("merchantProfile")
   return {
@@ -11,7 +11,7 @@ const recoverProfile = () => {
 
 export const initialState = {
   isLoading: false,
-  profile: recoverProfile()
+  profile: initializeProfile()
 }
 
 export function globalReducer(state, action) {

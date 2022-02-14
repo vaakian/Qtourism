@@ -3,8 +3,6 @@ import { useGlobalState } from "../store"
 import constants from "../store/constants"
 import { AUTH_TYPE, useAxios } from "./http"
 
-
-
 export default () => {
   const axios = useAxios()
   const { dispatch } = useGlobalState()
@@ -49,7 +47,7 @@ export default () => {
       updateProfile({ password, tel, avatarUrl }) {
         const body = { password, tel, avatarUrl }
         for (let key in body) {
-          if (!body[key]) delete body[key]
+          if (typeof body[key] === 'undefined') delete body[key]
         }
         return axios.put('/user/profile', body, {
           authType: AUTH_TYPE.USER_AUTH
