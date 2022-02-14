@@ -1,12 +1,13 @@
-// import { useReducer } from "react"
 import mutations from "./mutations"
 
+const userProfile = localStorage.getItem("userProfile")
+const merchantProfile = localStorage.getItem("merchantProfile")
 
 export const initialState = {
   isLoading: false,
-  authorization: {
-    user: null,
-    merchant: null,
+  profile: {
+    user: JSON.parse(userProfile || null),
+    merchant: JSON.parse(merchantProfile || null)
   }
 }
 

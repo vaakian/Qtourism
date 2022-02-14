@@ -22,8 +22,8 @@ const login = ctx => {
       const userinfo = result.toJSON()
       ctx.status = 200
       ctx.body = {
-        token: userAuth.sign(userinfo),
-        userinfo
+        ...userinfo,
+        token: userAuth.sign(userinfo)
       }
     }).catch(err => {
       console.log({ err })

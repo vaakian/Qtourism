@@ -29,15 +29,18 @@ export const StateEditor = () => {
     }
   }, [dispatch])
   return (
-    <div className="stateEditor">
-      <textarea
+    <div className="stateEditor" style={{ position: 'fixed', bottom: 5, right: 5, border: '1px solid red' }}>
+      <pre>
+        {JSON.stringify(state, null, 2)}
+      </pre>
+      {/* <textarea
         cols="30"
         rows="10"
         onBlur={handleChange}
         defaultValue={JSON.stringify(state, null, 2)}
         style={{ position: 'fixed', bottom: 0, right: 0 }}
       >
-      </textarea>
+      </textarea> */}
     </div >
   )
 }

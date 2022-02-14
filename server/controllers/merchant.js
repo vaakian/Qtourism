@@ -9,8 +9,8 @@ const login = ctx => {
     const userinfo = result.toJSON()
     ctx.status = 200
     ctx.body = {
-      token: merchantAuth.sign(userinfo),
-      userinfo
+      ...userinfo,
+      token: merchantAuth.sign(userinfo)
     }
   }).catch(err => {
     ctx.status = 403

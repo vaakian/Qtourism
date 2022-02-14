@@ -12,12 +12,12 @@ export default {
   },
   [constants.SET_USER](state, payload) {
     if (payload instanceof Object) {
-      return { ...state, authorization: { ...state.authorization, user: payload } }
+      return { ...state, profile: { ...state.profile, user: payload } }
     }
   },
   [constants.SET_MERCHANT](state, payload) {
     if (payload instanceof Object) {
-      return { ...state, authorization: { ...state.authorization, merchant: payload } }
+      return { ...state, profile: { ...state.profile, merchant: payload } }
     }
   },
   [constants.SET_STATE](state, payload) {

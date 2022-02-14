@@ -1,17 +1,18 @@
 import { } from 'react'
 
 import './App.css'
-import { AppRoute } from './routes'
+import { AppRoutes } from './routes'
 import { GlobalContextProvider, StateEditor } from './store'
-
+import AppErrorBoundary from './middlewares/error'
 
 function App() {
   return (
     <GlobalContextProvider>
       <div className="App">
-        <AppRoute />
-
-        {/* <StateEditor /> */}
+        <AppErrorBoundary>
+          <AppRoutes />
+          <StateEditor />
+        </AppErrorBoundary>
       </div>
     </GlobalContextProvider>
   )
