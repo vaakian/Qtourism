@@ -13,6 +13,10 @@ export const GlobalContextProvider = ({ children }) => {
     </GlobalContext.Provider>
   )
 }
+export const useGlobalState = () => {
+  const { state, dispatch } = useContext(GlobalContext)
+  return { state, dispatch }
+}
 
 
 export const StateEditor = () => {

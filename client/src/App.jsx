@@ -4,17 +4,20 @@ import './App.css'
 import { AppRoutes } from './routes'
 import { GlobalContextProvider, StateEditor } from './store'
 import AppErrorBoundary from './middlewares/error'
+import { AxiosProvider } from './services/http'
 
 function App() {
   return (
-    <GlobalContextProvider>
-      <div className="App">
-        <AppErrorBoundary>
-          <AppRoutes />
-          <StateEditor />
-        </AppErrorBoundary>
-      </div>
-    </GlobalContextProvider>
+    <div className="App">
+      <GlobalContextProvider>
+        <AxiosProvider>
+          <AppErrorBoundary>
+            <AppRoutes />
+            <StateEditor />
+          </AppErrorBoundary>
+        </AxiosProvider>
+      </GlobalContextProvider>
+    </div>
   )
 }
 

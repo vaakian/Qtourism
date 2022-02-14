@@ -4,8 +4,8 @@ const { makeResponse } = require('./utils')
 
 // POST /user/register
 const register = ctx => {
-  const { username, password } = ctx.request.body
-  const user = new models.User({ username, password })
+  const { username, password, tel } = ctx.request.body
+  const user = new models.User({ username, password, tel })
   return makeResponse(
     user.save(),
     ctx,
@@ -26,7 +26,7 @@ const login = ctx => {
         token: userAuth.sign(userinfo)
       }
     }).catch(err => {
-      console.log({ err })
+      console.log('登录失败')
       ctx.status = 403
       ctx.body = {
         message: '登录失败'

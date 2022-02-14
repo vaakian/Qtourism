@@ -24,7 +24,9 @@ const login = ctx => {
 const getMerchantPackages = ctx => {
   const { id } = merchantAuth.decode(ctx.header.authorization)
   return makeResponse(
-    models.Package.where({ merchant_id: id }).fetchAll(),
+    models.Package.where({ merchant_id: id })
+      .withCount('orders as orderCount')
+      .get(),
     '没有找到套餐'
   )
 }

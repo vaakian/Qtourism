@@ -1,14 +1,17 @@
 import mutations from "./mutations"
 
-const userProfile = localStorage.getItem("userProfile")
-const merchantProfile = localStorage.getItem("merchantProfile")
-
-export const initialState = {
-  isLoading: false,
-  profile: {
+const recoverProfile = () => {
+  const userProfile = localStorage.getItem("userProfile")
+  const merchantProfile = localStorage.getItem("merchantProfile")
+  return {
     user: JSON.parse(userProfile || null),
     merchant: JSON.parse(merchantProfile || null)
   }
+}
+
+export const initialState = {
+  isLoading: false,
+  profile: recoverProfile()
 }
 
 export function globalReducer(state, action) {

@@ -1,13 +1,12 @@
 import React, { useContext } from "react"
 import { Outlet } from "react-router-dom"
-import { GlobalContext } from "@/store"
 import { UserAuthMiddleware } from "../../middlewares/auth"
+import { useGlobalState } from "../../store"
 
 const User = () => {
-  const { state, dispatch } = useContext(GlobalContext)
   return (
     <div className="user">
-      {/* Outlet element is for placing Children elements */}
+      <h1>用户首页</h1>
       <Outlet />
     </div>
   )

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Navigate, useRoutes } from 'react-router-dom'
-import UserInfo from '$/User/UserInfo'
+import UserProfile from '$/User/Profile'
 // import User from '$/User/Index'
 import Index from '$/Index/Index'
 import { lazy, Suspense } from 'react'
@@ -20,8 +20,8 @@ export const RouterView = () => {
       path: 'user',
       element: <User />,
       children: [
-        { path: 'info', element: <UserInfo /> },
-        { path: '*', element: <Navigate to="/user" /> },
+        { path: 'profile', element: <UserProfile /> },
+        { path: '*', element: <Navigate to="/user/profile" /> },
       ]
     },
     {

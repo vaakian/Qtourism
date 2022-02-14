@@ -20,8 +20,8 @@
 
 - [x] POST /package (body: {name, price, description})
 - [x] DELETE /package/:id
-- [x] ~~GET /merchant/packages~~
-- [x] GET /merchant/orders?package_id=1823&page=1
+- [x] GET /merchant/package
+- [x] GET /merchant/order?package_id=1823&page=1
 
 
 #### user only
@@ -31,9 +31,9 @@
 
 <!-- #### unnecessary -->
 - [x] GET /user/info
-- [x] GET /user/packages
-- [x] GET /user/comments
-- [x] GET /user/orders
+- [x] GET ~~/user/package~~ 通过order来查看package
+- [x] GET /user/comment
+- [x] GET /user/order
 
 
 

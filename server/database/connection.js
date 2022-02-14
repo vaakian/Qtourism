@@ -7,7 +7,7 @@ const knex = require('knex')({
 })
 
 const bookshelf = require('bookshelf')(knex)
-
+bookshelf.plugin(require('bookshelf-eloquent'))
 
 module.exports = bookshelf
 
