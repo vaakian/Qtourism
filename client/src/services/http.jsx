@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import { createContext, useContext, useMemo } from 'react'
-import { GlobalContext } from '../store'
+import { GlobalContext, useGlobalState } from '../store'
 export const AUTH_TYPE = {
   NO_AUTH: 0,
   USER_AUTH: 1,
@@ -25,7 +25,7 @@ const transformObject = (obj) => {
 export const AxiosProvider = ({
   children,
 }) => {
-  const { profile } = useContext(GlobalContext)
+  const { state: { profile } } = useGlobalState()
   const axios = useMemo(() => {
     const axios = Axios.create({
       baseURL: BASE_URL,
@@ -37,13 +37,13 @@ export const AxiosProvider = ({
     axios.interceptors.request.use((config) => {
       console.log('requesting', config)
       const { authType } = config
-      if (authType === AUTH_TYPE.NO_AUTH) {
+      if (authType !== AUTH_TYPE.NO_AUTH) {
         let token = ''
         if (authType === AUTH_TYPE.USER_AUTH) token = profile.user.token
         else if (authType === AUTH_TYPE.MERCHANT_AUTH) token = profile.merchant.token
         if (token === '') {
           // cancel request
-
+          console.log('未认证')
           return config
         }
         config.headers.Authorization = `Bearer ${token}`
@@ -57,6 +57,11 @@ export const AxiosProvider = ({
       transformObject(config.data)
       transformObject(config.params)
       return config
+    })
+    axios.interceptors.request.use((config) => {
+      return new Promise((rsv) => {
+        setTimeout(() => rsv(config), 800)
+      })
     })
     return axios
   }, [profile])

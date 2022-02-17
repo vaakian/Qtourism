@@ -55,7 +55,7 @@ export default () => {
       },
       order({ packageId }) {
         const body = { packageId }
-        return axios.post('/user/order', body, {
+        return axios.post('/order', body, {
           authType: AUTH_TYPE.USER_AUTH
         })
       }

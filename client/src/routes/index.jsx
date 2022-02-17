@@ -1,35 +1,31 @@
 import { BrowserRouter as Router, Navigate, useRoutes } from 'react-router-dom'
 import UserProfile from '$/User/Profile'
 // import User from '$/User/Index'
-import Index from '$/Index/Index'
+import Index from '../views/Index/Index'
 import { lazy, Suspense } from 'react'
 import Fallback from './Fallback'
 import Merchant from '../views/Merchant/Index'
 import Login from '../views/User/Login'
-import Package from '$/Package'
-import PackageDetail from '$/Package/PackageDetail'
+import PackageDetail from '../views/Package/PackageDetail'
+import PackageIndex from '../views/Package/Index'
 
 
+// const Package = lazy(() => import('../views/Package'))
 const User = lazy(() => import('$/User/Index'))
 
 export const RouterView = () => {
   const routes = useRoutes([
     { path: '/', element: <Index /> },
     {
-      path: 'package',
-      element: (
-        <Suspense fallback={<Fallback />}><Package /></Suspense>
-      ),
-      // 路由参数传id
-      children: [
-      ],
+      path: '/package',
+      element: <PackageIndex />
     },
     { path: 'package/:id', element: <PackageDetail /> },
     { path: '/user/login', element: <Login /> },
     { path: '/merchant/login', element: <h1>Merchant login</h1> },
     {
       // 下面都需要通过userAuthMiddleware
-      path: 'user',
+      path: '/user',
       element: <User />,
       children: [
         { path: 'profile', element: <UserProfile /> },
@@ -49,9 +45,10 @@ export const RouterView = () => {
   return routes
 }
 
-export const AppRoutes = () => (
+export const AppRoutes = ({ children }) => (
   <Router>
     <Suspense fallback={<Fallback />}>
+      {children}
       <RouterView />
     </Suspense>
   </Router>

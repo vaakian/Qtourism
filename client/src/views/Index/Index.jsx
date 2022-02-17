@@ -1,10 +1,11 @@
-import React, { useEffect } from "react"
-import { usePackageService } from '../../services'
-import { useQuery } from 'react-query'
-import { delaiedPromise } from "../../utils"
+import React from "react"
+import Nav from "./Nav"
 import './index.scss'
-import { AutoComplete, Button, Input, Space } from "@douyinfe/semi-ui"
-import { IconSearch } from "@douyinfe/semi-icons"
+import Background from "./Background"
+import { Input, AutoComplete } from 'antd'
+import { AudioOutlined } from '@ant-design/icons'
+import { useNavigate } from "react-router-dom"
+
 const Index = () => {
   // const packageService = usePackageService()
   // const { isLoading, data, isSuccess } = useQuery('package', async () => {
@@ -13,32 +14,39 @@ const Index = () => {
   // })
   return (
     <div className="index">
-      <div className="index-banner">
-        <SearchSuggestion />
+      <div className="search absolute left-1/2 top-1/2">
+        <SearchItem />
+
       </div>
     </div>
   )
 }
-
-
-const SearchSuggestion = () => {
-  const { isLoading, data, isSuccess } = useQuery('suggestion', async () => {
-    return [
-      { name: '东北易如意', id: 1 },
-      { name: '加拿大-组团', id: 2 },
-    ]
-  })
+export const SearchItem = () => {
+  // const onSearch = value => console.log(value)
+  const navigate = useNavigate()
+  const onSelect = value => {
+    // onSelect 直接跳到该套餐
+    if (value) {
+      navigate(`/package/${value}`)
+    }
+  }
+  const onSearch = value => {
+    // 跳到搜索结果页
+    if (value) {
+      console.log(value)
+      navigate(`/package?keyword=${value}`)
+    }
+  }
   return (
-    <div className="search">
-      <Space>
-        <Input
-          size="large"
-          placeholder="搜索绝美的旅游胜地"
-          prefix={<IconSearch />}
-          style={{ width: '250px' }} />
-        <Button theme="solid" type="primary" size="large">Go</Button>
-      </Space>
-    </div>
+    <AutoComplete
+      dropdownMatchSelectWidth={252}
+      style={{ width: 300 }}
+      options={[{ value: '1823', label: '行了' }]}
+      onSelect={onSelect}
+    >
+      <Input.Search placeholder="搜索未知的圣地x" size="large" onSearch={onSearch} enterButton />
+    </AutoComplete>
+
   )
 }
 

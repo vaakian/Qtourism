@@ -24,3 +24,18 @@ export const hashColor = (str) => {
     'amber',
   ][strCodeSum % 10]
 }
+
+// 解析url参数
+export const parseUrlParams = (url) => {
+  const params = {}
+  const urlParams = url.split('?')[1]
+  if (!urlParams) {
+    return params
+  }
+  const paramsArr = urlParams.split('&')
+  paramsArr.forEach((param) => {
+    const paramArr = param.split('=')
+    params[paramArr[0]] = decodeURIComponent(paramArr[1])
+  })
+  return params
+}

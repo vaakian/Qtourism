@@ -38,14 +38,6 @@ export const StateEditor = () => {
       <pre>
         {JSON.stringify(state, null, 2)}
       </pre>
-      {/* <textarea
-        cols="30"
-        rows="10"
-        onBlur={handleChange}
-        defaultValue={JSON.stringify(state, null, 2)}
-        style={{ position: 'fixed', bottom: 0, right: 0 }}
-      >
-      </textarea> */}
     </div >
   )
 }
