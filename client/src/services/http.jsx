@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import Axios from 'axios'
 import { createContext, useContext, useMemo } from 'react'
 import { GlobalContext, useGlobalState } from '../store'
@@ -7,7 +8,7 @@ export const AUTH_TYPE = {
   MERCHANT_AUTH: 2,
 }
 export const AxiosContext = createContext()
-
+let hideLoading = () => { }
 const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://api.merchant.com' : '/api'
 
 const camelToSnakeCase = str => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)
@@ -59,9 +60,16 @@ export const AxiosProvider = ({
       return config
     })
     axios.interceptors.request.use((config) => {
+      hideLoading = message.loading('数据请求中...', 0)
       return new Promise((rsv) => {
-        setTimeout(() => rsv(config), 800)
+        setTimeout(() => rsv(config), 1000)
       })
+    })
+
+
+    axios.interceptors.response.use((res) => {
+      hideLoading()
+      return res
     })
     return axios
   }, [profile])

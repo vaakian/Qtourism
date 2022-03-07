@@ -2,11 +2,12 @@ import React from "react"
 
 
 import { Card, Avatar, Button, Popover, notification, Typography, Image } from 'antd'
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons'
+import { EditOutlined, EllipsisOutlined, LoadingOutlined, SettingOutlined } from '@ant-design/icons'
 import MerchantInfo from "./MerchantInfo"
 import { usePackageService, useUserService } from "../../services"
 import { useMutation } from "react-query"
 import loadingImage from '@/components/loading.gif'
+import { IconLoading } from "@douyinfe/semi-icons"
 
 const { Meta } = Card
 const openNotification = (packageInfo, orderInfo) => {
@@ -59,7 +60,7 @@ const PackageItem = ({ package: p }) => {
               alt="example"
               src={`https://source.unsplash.com/random/275x150/?travel,scenery&${p.name}`}
               fallback={loadingImage}
-              placeholder={<div>图片加载中……</div>}
+              placeholder={<div className="text-9xl text-center w-full"><LoadingOutlined /></div>}
             />
           </div>
 

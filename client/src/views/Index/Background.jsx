@@ -13,7 +13,7 @@ export default () => {
   //   }
   // }, [ref])
   return (
-    <div className="video-bg w-full fixed top-0">
+    <div className="video-bg w-full fixed top-0 z-0">
       <video className="w-full" onContextMenu={() => false} src={backgroundVideo} autoPlay loop muted controls={false} />
     </div>
   )

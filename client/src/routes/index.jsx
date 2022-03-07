@@ -8,6 +8,7 @@ import Merchant from '../views/Merchant/Index'
 import Login from '../views/User/Login'
 import PackageDetail from '../views/Package/PackageDetail'
 import PackageIndex from '../views/Package/Index'
+import UserRegister from '../views/User/Register'
 
 
 // const Package = lazy(() => import('../views/Package'))
@@ -20,8 +21,9 @@ export const RouterView = () => {
       path: '/package',
       element: <PackageIndex />
     },
-    { path: 'package/:id', element: <PackageDetail /> },
+    { path: '/package/:id', element: <PackageDetail /> },
     { path: '/user/login', element: <Login /> },
+    { path: '/user/register', element: <UserRegister /> },
     { path: '/merchant/login', element: <h1>Merchant login</h1> },
     {
       // 下面都需要通过userAuthMiddleware

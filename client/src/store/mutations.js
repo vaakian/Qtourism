@@ -12,6 +12,7 @@ export default {
   },
   [constants.SET_USER](state, payload) {
     if (payload instanceof Object) {
+      if (!payload.avatar_url) payload.avatar_url = `https://joeschmoe.io/api/v1/${payload.username}`
       localStorage.setItem('userProfile', JSON.stringify(payload))
       return { ...state, profile: { ...state.profile, user: payload } }
     }

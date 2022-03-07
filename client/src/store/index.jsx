@@ -19,6 +19,14 @@ export const useGlobalState = () => {
   return { state, dispatch }
 }
 
+export const useUserProfile = () => {
+  const { state } = useGlobalState()
+  return state.profile.user
+}
+export const useMerchantProfile = () => {
+  const { state } = useGlobalState()
+  return state.profile.merchant
+}
 
 export const StateEditor = () => {
   const { state, dispatch } = useContext(GlobalContext)

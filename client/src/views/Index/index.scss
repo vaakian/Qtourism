@@ -3,3 +3,15 @@
         transform: translate(-50%, -50%);
         }
 }
+
+.title {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 0 25px;
+    border-radius: 10px;
+    h1 {
+        background: -webkit-linear-gradient(315deg,#42d392 25%,#647eff);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 64px;
+    }
+}
