@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 const Index = () => {
   // const packageService = usePackageService()
   // const { isLoading, data, isSuccess } = useQuery('package', async () => {
-  //   const { data } = await delaiedPromise(1000, packageService.getPackages)
+  //   const { data } = await delayedPromise(1000, packageService.getPackages)
   //   return data
   // })
   return (

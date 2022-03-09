@@ -3,14 +3,14 @@ import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 import { usePackageService } from "../../services"
 import SubLoading from "../../components/SubLoading"
-import { delaiedPromise } from "../../utils"
+import { delayedPromise } from "../../utils"
 
-const PacageDetail = () => {
+const PackageDetail = () => {
   const packageService = usePackageService()
   const [packageDetail, setPackageDetail] = useState(null)
   const { id } = useParams()
   const { isLoading, isSuccess, data, isFetched } = useQuery('packageDetail', async () => {
-    const { data } = await delaiedPromise(() => packageService.getPackageDetail({ packageId: id }), 500)
+    const { data } = await delayedPromise(() => packageService.getPackageDetail({ packageId: id }), 500)
     console.log({ data })
     return data
   })
@@ -35,4 +35,4 @@ const PacageDetail = () => {
   )
 }
 
-export default PacageDetail
+export default PackageDetail

@@ -70,13 +70,13 @@ const UserProfile = () => {
       extra={[
         <Button key="3" type="primary">操作1</Button>,
         <Button key="2" type="dashed">操作2</Button>,
-        <Popconfirm
+        <Popconfirm key="1"
           title="确定注销吗？"
           onConfirm={logout}
           okText="确定"
           cancelText="取消"
         >
-          <Button key="1" type="primary" danger>注销登录</Button>
+          <Button type="primary" danger>注销登录</Button>
         </Popconfirm>,
       ]}
       footer={

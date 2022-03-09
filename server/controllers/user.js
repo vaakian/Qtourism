@@ -63,9 +63,10 @@ const getUserComments = ctx => {
 // - [ ] GET /user/orders
 const getUserOrders = ctx => {
   const { id } = userAuth.decode(ctx.header.authorization)
+  console.log({ id })
   return makeResponse(
     models.Order.where({ user_id: id }).fetchAll({
-      withRelated: ['package', 'merchant']
+      withRelated: ['package.merchant']
     }),
     ctx,
     '未能获取到订单'

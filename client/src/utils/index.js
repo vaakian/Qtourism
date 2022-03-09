@@ -1,4 +1,4 @@
-export const delaiedPromise = (promise, delay) => {
+export const delayedPromise = (promise, delay) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       promise().then(resolve)
