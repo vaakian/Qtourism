@@ -60,7 +60,11 @@ export const AxiosProvider = ({
       return config
     })
     axios.interceptors.request.use((config) => {
-      hideLoading = message.loading('数据请求中...', 0)
+      if (!hideLoading) {
+        hideLoading = message.loading('数据请求中...', 0)
+      } else {
+        hideLoading()
+      }
       return new Promise((rsv) => {
         setTimeout(() => rsv(config), 1000)
       })
@@ -69,6 +73,7 @@ export const AxiosProvider = ({
 
     axios.interceptors.response.use((res) => {
       hideLoading()
+      hideLoading = null
       return res
     })
     return axios

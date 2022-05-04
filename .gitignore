@@ -5,3 +5,4 @@ test.js
 .vscode
 .vscode_bak
 *.sqlite
+*.zip

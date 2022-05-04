@@ -1,10 +1,28 @@
 import React, { useState } from "react"
 import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
-import { usePackageService } from "../../services"
+import { useCommentService, usePackageService } from "../../services"
 import SubLoading from "../../components/SubLoading"
 import { delayedPromise } from "../../utils"
+import PackageItem from "./PackageItem"
+const Comments = ({ package: p }) => {
+  const { id } = p
+  const commentService = useCommentService()
+  const { isLoading, isSuccess, data, isFetched } = useQuery('comments', async () => {
+    const { data } = await commentService.getPackageComments({ packageId: id })
+    return data
+  })
 
+  if (isSuccess && Array.isArray(data)) {
+    return (
+      <div>
+        {data.map(c => <p>{c.content}</p>)}
+      </div>
+    )
+  }
+  return <></>
+
+}
 const PackageDetail = () => {
   const packageService = usePackageService()
   const [packageDetail, setPackageDetail] = useState(null)
@@ -27,12 +45,14 @@ const PackageDetail = () => {
     return <SubLoading />
   }
   return (
-    <div className="package-detail">
-      {data && (
-        <div>{data.name}</div>
-      )}
+    <div className="package-detail z-10">
+      <PackageItem package={data} />
+      {/* Comments and more details！ */}
+      <Comments package={data} />
     </div>
   )
 }
+
+
 
 export default PackageDetail
